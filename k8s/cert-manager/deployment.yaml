@@ -1,0 +1,19 @@
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: my-ingress
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    cert-manager.io/cluster-issuer: letsencrypt-staging
+spec:
+  rules:
+    - host: app2.smart-techthings.com
+      http:
+        paths:
+          - path: /
+            backend:
+              serviceName: hello-app
+              servicePort: 8080
+  tls:
+    - hosts:
+      - app2.smart-techthings.com
