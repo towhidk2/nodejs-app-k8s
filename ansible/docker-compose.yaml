@@ -1,0 +1,7 @@
+version: '3'
+services:
+  java-maven:
+    image: towhidk2/nodeapp:tag_name
+    restart: always
+    ports:
+    - 3003:3003
