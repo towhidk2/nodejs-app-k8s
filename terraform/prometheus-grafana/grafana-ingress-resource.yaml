@@ -1,0 +1,28 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: grafana-ingress
+  annotations:
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
+spec:
+  ingressClassName: nginx
+  tls:
+  - secretName: tls-wildcard
+    hosts:
+    - grafana.smart-techthings.com
+  rules:
+  - host: "grafana.smart-techthings.com"
+    http:
+      paths:
+      - pathType: Prefix
+        path: /
+        backend:
+          service:
+            name: prometheus-grafana
+            port:
+              number: 3000
+
+
+# deploy a test application
+# kubectl create deployment hello-app --image=gcr.io/google-samples/hello-app:1.0
+# kubectl expose deployment hello-app --port=8080 --target-port=8080

@@ -1,0 +1,32 @@
+prometheus:
+  prometheusSpec:
+    storageSpec:
+      volumeClaimTemplate:
+        spec:
+          accessModes: [ "ReadWriteOnce" ]
+          storageClassName: gp2
+          resources:
+            requests:
+              storage: 1Gi
+alertmanager:
+  alertmanagerSpec:
+    storage:
+      volumeClaimTemplate:
+        spec:
+          accessModes: [ "ReadWriteOnce" ]
+          storageClassName: gp2
+          resources:
+            requests:
+              storage: 1Gi
+grafana:
+  deploymentStrategy:
+    type: Recreate
+  persistence:
+    enabled: true
+    type: pvc
+    storageClassName: gp2
+    accessModes:
+    - ReadWriteOnce
+    size: 1Gi
+    finalizers:
+    - kubernetes.io/pvc-protection
