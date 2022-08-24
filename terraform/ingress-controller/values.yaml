@@ -1,4 +1,5 @@
 controller:
+  replicaCount: 1
   service:
     annotations:
       external-dns.alpha.kubernetes.io/hostname: smart-techthings.com.

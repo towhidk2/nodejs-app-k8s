@@ -1,9 +1,0 @@
-releases:
-  - name: cert-manager
-    namespace: kube-system
-    chart: jetstack/cert-manager
-    version: v1.7.3
-    values:
-      - installCRDs: true
-      - cainjector:
-          enabled: true

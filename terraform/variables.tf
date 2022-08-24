@@ -56,6 +56,11 @@ variable "ksa_name" {
     default = "external-dns"
 }
 
+variable root_domain {
+    default = "smart-techthings.com"
+}
+
+
 # # launch template
 # variable "custom_ami_name" {
 #   default = "amzon-linux-nodeapp-3"
@@ -67,12 +72,6 @@ variable "ksa_name" {
 
 # variable instance_type {
 #     default = "t2.micro"
-# }
-
-
-# # certificate manager
-# variable root_domain {
-#     default = "smart-techthings.com"
 # }
 
 # variable sub_domain {
