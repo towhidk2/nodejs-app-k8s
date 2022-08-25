@@ -37,7 +37,7 @@ spec:
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: nodeapp-ingress
+  name: nodeapp3-ingress
   annotations:
     cert-manager.io/cluster-issuer: "letsencrypt-prod"
 spec:
@@ -45,9 +45,9 @@ spec:
   tls:
   - secretName: tls-wildcard
     hosts:
-    - nodeapp.smart-techthings.com
+    - nodeapp3.smart-techthings.com
   rules:
-  - host: "nodeapp.smart-techthings.com"
+  - host: "nodeapp3.smart-techthings.com"
     http:
       paths:
       - pathType: Prefix
