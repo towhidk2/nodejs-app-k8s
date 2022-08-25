@@ -1,7 +1,7 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: app2-ingress
+  name: nodeapp3-ingress
   annotations:
     cert-manager.io/cluster-issuer: "letsencrypt-prod"
 spec:
@@ -9,9 +9,9 @@ spec:
   tls:
   - secretName: tls-wildcard
     hosts:
-    - app2.smart-techthings.com
+    - nodeapp3.smart-techthings.com
   rules:
-  - host: "app2.smart-techthings.com"
+  - host: "nodeapp3.smart-techthings.com"
     http:
       paths:
       - pathType: Prefix
@@ -26,3 +26,6 @@ spec:
 # deploy a test application
 # kubectl create deployment hello-app --image=gcr.io/google-samples/hello-app:1.0
 # kubectl expose deployment hello-app --port=8080 --target-port=8080
+
+# kubectl create deployment mytest-app --image=nginx
+# kubectl expose deployment mytest-app --port=8081 --target-port=80

@@ -27,6 +27,6 @@ resource "aws_iam_policy" "autoscaler" {
 
 # custom policy to be attached with existing nodegroup(eks-node-group-role) IAM role which was created in eks module
 resource "aws_iam_role_policy_attachment" "autoscaler" {
-    role       = aws_eks_node_group.node.name
+    role       = aws_iam_role.eks_nodes.name
     policy_arn = aws_iam_policy.autoscaler.arn
 }

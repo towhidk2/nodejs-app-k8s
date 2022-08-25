@@ -87,8 +87,8 @@ resource "aws_iam_role_policy_attachment" "AmazonEC2ContainerRegistryReadOnly" {
 }
 
 
-resource "aws_iam_role_policy_attachment" "Route53ReadOnlyAccess" {
-    policy_arn              = "arn:aws:iam::aws:policy/AmazonRoute53ReadOnlyAccess"
+resource "aws_iam_role_policy_attachment" "NodeRoute53FullAccess" {
+    policy_arn              = "arn:aws:iam::aws:policy/AmazonRoute53FullAccess"
     role                    = aws_iam_role.eks_nodes.name
 }
 
