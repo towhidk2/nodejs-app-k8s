@@ -6,7 +6,7 @@ pipeline {
         TF_VAR_env_prefix = 'dev'
         TF_VAR_ssh_public_key = '/var/jenkins_home/.ssh/id_rsa.pub'
         DOCKER_CREDS = credentials('docker-credentials')
-        IMAGE_NAME = "towhidk2/nodeapp:${BUILD_NUMBER}"
+        IMAGE_NAME = "235639604932.dkr.ecr.us-east-1.amazonaws.com/nodeapp:${BUILD_NUMBER}"
 
     }
     stages {
@@ -42,67 +42,13 @@ pipeline {
         stage('Build and push image') {
             steps {
                 script {
-                    echo "Building and pushing image to docker hub..."
+                    echo "Building and pushing image to aws ecr..."
                     sh "docker build -t ${IMAGE_NAME} ."
-                    sh "echo ${DOCKER_CREDS_PSW} | docker login -u ${DOCKER_CREDS_USR} --password-stdin"
+                    sh "aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 235639604932.dkr.ecr.us-east-1.amazonaws.com"
                     sh "docker push ${IMAGE_NAME}"
                 }
             }
-        }
-
-
-        stage('Provision server and create AMI') {
-            
-            stages {
-
-                stage('Provision server') {
-                    steps {
-                        script {
-                            dir('terraform-ami') {
-                                echo 'Provisioning server...'
-                                sh "terraform init"
-                                sh "terraform plan"
-                                sh "terraform apply --auto-approve"
-                            }
-                        }
-                    }
-                }
-
-                stage('Configure server') {
-                    steps {
-                        script {
-                            dir('ansible') {
-                                echo 'Configuring server...'
-                                sh "ansible-playbook deploy-docker-container.yaml --vault-password-file $HOME/.vault_secret --extra-vars image_tag=${BUILD_NUMBER}"
-                            }
-                        }
-                    }
-                }
-
-                stage('Create custom AMI') {
-                    steps {
-                        script {
-                            dir('terraform-ami') {
-                                echo 'Creatiing AMI...'
-                                sh "python3 create_custom_ami.py"
-                            }
-                        }
-                    }
-                }
-
-                stage('Destroy provisioned server') {
-                    steps {
-                        script {
-                            dir('terraform-ami') {
-                                echo 'Destroying provisioned server...'
-                                sh "terraform destroy --auto-approve"
-                            }
-                        }
-                    }
-                }
-            
-            }
-        }
+        }      
     
         stage('Deploy MyApp') {
             steps {

@@ -1,1 +1,59 @@
-hello
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nodeapp-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nodeapp
+  template:
+    metadata:
+      labels:
+        app: nodeapp
+    spec:
+      imagePullSecrets:
+      - name: ecr-registry-key
+      containers:
+        - name: nodeapp
+          image: 235639604932.dkr.ecr.us-east-1.amazonaws.com/nodeapp:tag_name
+          ports:
+          - containerPort: 3003
+            name: nodeapp-port
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: nodeapp-service
+spec:
+  selector:
+    app: nodeapp
+  type: ClusterIP
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: nodeapp-port
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: nodeapp-ingress
+  annotations:
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
+spec:
+  ingressClassName: nginx
+  tls:
+  - secretName: tls-wildcard
+    hosts:
+    - nodeapp.smart-techthings.com
+  rules:
+  - host: "nodeapp.smart-techthings.com"
+    http:
+      paths:
+      - pathType: Prefix
+        path: /
+        backend:
+          service:
+            name: nodeapp-service
+            port:
+              number: 80
