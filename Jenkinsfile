@@ -3,9 +3,6 @@ pipeline {
     environment {
         AWS_ACCESS_KEY_ID = credentials('jenkins_aws_access_key_id')
         AWS_SECRET_ACCESS_KEY = credentials('jenkins_aws_secret_access_key')
-        TF_VAR_env_prefix = 'dev'
-        TF_VAR_ssh_public_key = '/var/jenkins_home/.ssh/id_rsa.pub'
-        DOCKER_CREDS = credentials('docker-credentials')
         IMAGE_NAME = "235639604932.dkr.ecr.us-east-1.amazonaws.com/nodeapp:${BUILD_NUMBER}"
 
     }
