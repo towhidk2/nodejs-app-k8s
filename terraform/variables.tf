@@ -61,28 +61,4 @@ variable root_domain {
 }
 
 
-# # launch template
-# variable "custom_ami_name" {
-#   default = "amzon-linux-nodeapp-3"
-# }
 
-# variable ssh_public_key {
-#     default = "/home/towhid/.ssh/id_rsa.pub"
-# }
-
-# variable instance_type {
-#     default = "t2.micro"
-# }
-
-# variable sub_domain {
-#     default = "*"
-# }
-
-# variable dns_zone_name {
-#     default = "smart-techthings.com"
-# }
-
-# # nodeapp.smart-techthings.com
-# variable dns_record_name {
-#     default = "nodeapp"
-# }

@@ -11,7 +11,7 @@ pipeline {
         stage('Build') {
             steps {
                 script {
-                    echo 'Building application...'
+                    echo 'Building code...'
                     sh "npm install"
                 }
             }
@@ -20,7 +20,7 @@ pipeline {
         stage('Test') {
             steps {
                 script {
-                    echo 'Testing application...'
+                    echo 'Testing code...'
                     sh "npm run test"
                 }
             }
