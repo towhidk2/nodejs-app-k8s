@@ -1,7 +1,7 @@
 <div align="left">
   <h3>NodeJS Sample Application</h3>
   <strong>
-      In this project I demonstrated how to deploy a microservice application in EKS Cluster. Here I have used various devops tools like Jenkins for task automation, terraform for infrastructure provisioning, sonarqube for code analysis, ECR as container registry etc.
+      A project on deploying nodejs application in EKS Cluster where I have used various devops tools like Jenkins for task automation, terraform for infrastructure provisioning, sonarqube for code analysis, ECR as container registry etc. Also I have added prometheus metrics endpoint to the application with aws ebs persitent volume. In brief, I tried to implement all the tools which are required for production deployment of an application.
   </strong>
 </div>
 <br>

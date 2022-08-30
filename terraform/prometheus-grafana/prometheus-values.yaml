@@ -1,32 +1,36 @@
+alertmanager:
+  alertmanagerSpec:
+    storage: 
+    volumeClaimTemplate:
+      spec:
+        storageClassName: ebs-sc
+        accessModes: ["ReadWriteOnce"]
+        resources:
+          requests:
+            storage: 1Gi
+        selector: 
+          alertmanager: prometheus-kube-prometheus-alertmanager
 prometheus:
   prometheusSpec:
     storageSpec:
       volumeClaimTemplate:
         spec:
-          accessModes: [ "ReadWriteOnce" ]
-          storageClassName: gp2
+          storageClassName: ebs-sc
+          accessModes: ["ReadWriteOnce"]
           resources:
             requests:
               storage: 1Gi
-alertmanager:
-  alertmanagerSpec:
-    storage:
-      volumeClaimTemplate:
-        spec:
-          accessModes: [ "ReadWriteOnce" ]
-          storageClassName: gp2
-          resources:
-            requests:
-              storage: 1Gi
+          selector:
+            matchLabels:
+              app: kube-prometheus-stack-prometheus
 grafana:
-  deploymentStrategy:
-    type: Recreate
-  persistence:
+  ingress:
     enabled: true
-    type: pvc
-    storageClassName: gp2
-    accessModes:
-    - ReadWriteOnce
-    size: 1Gi
-    finalizers:
-    - kubernetes.io/pvc-protection
+    ingressClassName: nginx
+    hosts:
+    - grafana.smart-techthings.com
+    path: /
+    tls:
+    - secretName: tls-wildcard
+      hosts:
+      - grafana.smart-techthings.com
